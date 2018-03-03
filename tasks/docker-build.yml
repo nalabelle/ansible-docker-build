@@ -1,0 +1,21 @@
+---
+- set_fact:
+    docker_path: "{{docker_build_git_dir}}/{{image.name}}"
+
+- name: clone repo
+  git:
+    repo: "{{image.git}}"
+    dest: "{{docker_path}}"
+
+- name: build docker image
+  docker_image:
+    name: "{{image.name}}"
+    path: "{{docker_path}}"
+    tag: "{{image.tag}}"
+    buildargs: "{{image.buildargs}}"
+  register: docker_built
+
+- name: tag docker image
+  shell: docker tag {{image.name}}:{{image.tag}} {{image.name}}:{{item}}
+  with_items: image.other_tags
+  when: docker_built.changed
