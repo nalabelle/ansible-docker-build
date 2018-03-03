@@ -1,0 +1,7 @@
+---
+- include_tasks: docker-build.yml
+  with_items: "{{docker_build_images}}"
+  loop_control:
+    loop_var: "image"
+
+

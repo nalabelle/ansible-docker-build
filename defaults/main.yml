@@ -1,0 +1,3 @@
+---
+docker_build_git_dir: /tmp/docker
+docker_build_images: []
