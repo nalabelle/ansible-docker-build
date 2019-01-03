@@ -11,8 +11,8 @@
   docker_image:
     name: "{{image.name}}"
     path: "{{docker_path}}"
-    tag: "{{image.tag}}"
-    buildargs: "{{image.buildargs}}"
+    tag: "{{image.tag | default('latest') }}"
+    buildargs: "{{image.buildargs | default(omit) }}"
   register: docker_built
 
 - name: tag docker image
